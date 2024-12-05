@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FootballClupDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" />
+          <Property Name="PlayerName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Sponsors">
+          <Key>
+            <PropertyRef Name="SponsorId" />
+          </Key>
+          <Property Name="SponsorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SponsorName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TeamDetails">
+          <Key>
+            <PropertyRef Name="TeamDetailId" />
+          </Key>
+          <Property Name="TeamDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamId" Type="int" />
+          <Property Name="TeamColor" Type="nvarchar" MaxLength="50" />
+          <Property Name="TeamCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="TeamValue" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TeamName" Type="nvarchar" MaxLength="100" />
+          <Property Name="TeamCountry" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TeamSponsors">
+          <Key>
+            <PropertyRef Name="TeamId" />
+            <PropertyRef Name="SponsorId" />
+          </Key>
+          <Property Name="TeamId" Type="int" Nullable="false" />
+          <Property Name="SponsorId" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__TeamDetai__TeamI__60A75C0F">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamSpons__TeamI__47DBAE45">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+          <End Role="TeamSponsors" Type="Self.TeamSponsors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamSponsors">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Players_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TeamSponsors_Sponsors">
+          <End Role="Sponsors" Type="Self.Sponsors" Multiplicity="1" />
+          <End Role="TeamSponsors" Type="Self.TeamSponsors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sponsors">
+              <PropertyRef Name="SponsorId" />
+            </Principal>
+            <Dependent Role="TeamSponsors">
+              <PropertyRef Name="SponsorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FootballClupDbModelStoreContainer">
+          <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamDetails" EntityType="Self.TeamDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TeamSponsors" EntityType="Self.TeamSponsors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__TeamDetai__TeamI__60A75C0F" Association="Self.FK__TeamDetai__TeamI__60A75C0F">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamSpons__TeamI__47DBAE45" Association="Self.FK__TeamSpons__TeamI__47DBAE45">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamSponsors" EntitySet="TeamSponsors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Players_Teams" Association="Self.FK_Players_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TeamSponsors_Sponsors" Association="Self.FK_TeamSponsors_Sponsors">
+            <End Role="Sponsors" EntitySet="Sponsors" />
+            <End Role="TeamSponsors" EntitySet="TeamSponsors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FootballClupDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Players">
+          <Key>
+            <PropertyRef Name="PlayerId" />
+          </Key>
+          <Property Name="PlayerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" />
+          <Property Name="PlayerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK_Players_Teams" FromRole="Players" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Sponsors">
+          <Key>
+            <PropertyRef Name="SponsorId" />
+          </Key>
+          <Property Name="SponsorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SponsorName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Teams" Relationship="Self.TeamSponsors" FromRole="Sponsors" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="TeamDetails">
+          <Key>
+            <PropertyRef Name="TeamDetailId" />
+          </Key>
+          <Property Name="TeamDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamId" Type="Int32" />
+          <Property Name="TeamColor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TeamCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TeamValue" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Teams" Relationship="Self.FK__TeamDetai__TeamI__60A75C0F" FromRole="TeamDetails" ToRole="Teams" />
+        </EntityType>
+        <EntityType Name="Teams">
+          <Key>
+            <PropertyRef Name="TeamId" />
+          </Key>
+          <Property Name="TeamId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TeamName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TeamCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Players" Relationship="Self.FK_Players_Teams" FromRole="Teams" ToRole="Players" />
+          <NavigationProperty Name="TeamDetails" Relationship="Self.FK__TeamDetai__TeamI__60A75C0F" FromRole="Teams" ToRole="TeamDetails" />
+          <NavigationProperty Name="Sponsors" Relationship="Self.TeamSponsors" FromRole="Teams" ToRole="Sponsors" />
+        </EntityType>
+        <Association Name="FK_Players_Teams">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__TeamDetai__TeamI__60A75C0F">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="0..1" />
+          <End Role="TeamDetails" Type="Self.TeamDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Teams">
+              <PropertyRef Name="TeamId" />
+            </Principal>
+            <Dependent Role="TeamDetails">
+              <PropertyRef Name="TeamId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="TeamSponsors">
+          <End Role="Teams" Type="Self.Teams" Multiplicity="*" />
+          <End Role="Sponsors" Type="Self.Sponsors" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="FootballClupDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Players" EntityType="Self.Players" />
+          <EntitySet Name="Sponsors" EntityType="Self.Sponsors" />
+          <EntitySet Name="TeamDetails" EntityType="Self.TeamDetails" />
+          <EntitySet Name="Teams" EntityType="Self.Teams" />
+          <AssociationSet Name="FK_Players_Teams" Association="Self.FK_Players_Teams">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__TeamDetai__TeamI__60A75C0F" Association="Self.FK__TeamDetai__TeamI__60A75C0F">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="TeamDetails" EntitySet="TeamDetails" />
+          </AssociationSet>
+          <AssociationSet Name="TeamSponsors" Association="Self.TeamSponsors">
+            <End Role="Teams" EntitySet="Teams" />
+            <End Role="Sponsors" EntitySet="Sponsors" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FootballClupDbModelStoreContainer" CdmEntityContainer="FootballClupDbEntities">
+          <EntitySetMapping Name="Players">
+            <EntityTypeMapping TypeName="FootballClupDbModel.Players">
+              <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="PlayerId" ColumnName="PlayerId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="PlayerName" ColumnName="PlayerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sponsors">
+            <EntityTypeMapping TypeName="FootballClupDbModel.Sponsors">
+              <MappingFragment StoreEntitySet="Sponsors">
+                <ScalarProperty Name="SponsorId" ColumnName="SponsorId" />
+                <ScalarProperty Name="SponsorName" ColumnName="SponsorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TeamDetails">
+            <EntityTypeMapping TypeName="FootballClupDbModel.TeamDetails">
+              <MappingFragment StoreEntitySet="TeamDetails">
+                <ScalarProperty Name="TeamDetailId" ColumnName="TeamDetailId" />
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="TeamColor" ColumnName="TeamColor" />
+                <ScalarProperty Name="TeamCity" ColumnName="TeamCity" />
+                <ScalarProperty Name="TeamValue" ColumnName="TeamValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Teams">
+            <EntityTypeMapping TypeName="FootballClupDbModel.Teams">
+              <MappingFragment StoreEntitySet="Teams">
+                <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+                <ScalarProperty Name="TeamName" ColumnName="TeamName" />
+                <ScalarProperty Name="TeamCountry" ColumnName="TeamCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="TeamSponsors" TypeName="FootballClupDbModel.TeamSponsors" StoreEntitySet="TeamSponsors">
+            <EndProperty Name="Teams">
+              <ScalarProperty Name="TeamId" ColumnName="TeamId" />
+            </EndProperty>
+            <EndProperty Name="Sponsors">
+              <ScalarProperty Name="SponsorId" ColumnName="SponsorId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

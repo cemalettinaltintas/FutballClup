@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6f89b356be47408daf1bf36b730f867d" Name="Diagram1" ZoomLevel="151">
+        <EntityTypeShape EntityType="FootballClupDbModel.Players" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FootballClupDbModel.Sponsors" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FootballClupDbModel.TeamDetails" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="FootballClupDbModel.Teams" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <AssociationConnector Association="FootballClupDbModel.FK_Players_Teams" ManuallyRouted="false" />
+        <AssociationConnector Association="FootballClupDbModel.FK__TeamDetai__TeamI__60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="FootballClupDbModel.TeamSponsors" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
